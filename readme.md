@@ -2,14 +2,13 @@
 
 ## Структура компонентов
 
-QuestionCard (container)
-├── QuestionStem
-├── AnswerOptions
-│ └── AnswerOption
-├── ActionBar
-│ └── CheckAnswerButton
+QuestionCard (container)  
+├── QuestionStem  
+├── AnswerOptions  
+│ └── AnswerOption  
+├── ActionBar  
+│ └── CheckAnswerButton  
 └── Explanation (conditional)
-
 
 
 ### Ответственность компонентов
