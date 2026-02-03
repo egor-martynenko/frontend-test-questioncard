@@ -1,6 +1,7 @@
 # Часть 1. Архитектура QuestionCard
 
 ## Структура компонентов
+
 QuestionCard (container)
 ├── QuestionStem
 ├── AnswerOptions
@@ -8,6 +9,8 @@ QuestionCard (container)
 ├── ActionBar
 │ └── CheckAnswerButton
 └── Explanation (conditional)
+
+
 
 ### Ответственность компонентов
 - **QuestionCard (container)**  
