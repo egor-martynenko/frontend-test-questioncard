@@ -2,14 +2,13 @@
 
 ## Структура компонентов
 
-QuestionCard (container)  
-├── QuestionStem  
-├── AnswerOptions  
-│ └── AnswerOption  
-├── ActionBar  
-│ └── CheckAnswerButton  
+QuestionCard (container)
+├── QuestionStem
+├── AnswerOptions
+│   └── AnswerOption
+├── ActionBar
+│   └── CheckAnswerButton
 └── Explanation (conditional)
-
 
 ### Ответственность компонентов
 - **QuestionCard (container)**  
@@ -61,57 +60,58 @@ URL остаётся единственным источником правды 
 Это предотвращает двойные сабмиты и race conditions, сохраняя устойчивость интерфейса.
 
 # Часть 2. Псевдокод логики
+
 STATE:
-  questionId
-  selectedAnswer = null
-  status = 'idle'        // idle | checking | checked
-  checkResult = null     // correct | wrong | null
+questionId
+selectedAnswer = null
+status = 'idle'        // idle | checking | checked
+checkResult = null     // correct | wrong | null
 
 --------------------------------
 ON_ANSWER_SELECT(answerId):
-  if (status != 'idle') return
-    selectedAnswer = answerId
+if (status != 'idle') return
+selectedAnswer = answerId
 
 --------------------------------
 CAN_CHECK_ANSWER():
-  return selectedAnswer != null
-    AND status == 'idle'
+return selectedAnswer != null
+AND status == 'idle'
 
 --------------------------------
 ON_CHECK_ANSWER():
-    if (!CAN_CHECK_ANSWER()) return
+if (!CAN_CHECK_ANSWER()) return
 
-  status = 'checking'
-  disable answer options
-  disable check button
+status = 'checking'
+disable answer options
+disable check button
 
-  response = API.checkAnswer(questionId, selectedAnswer)
+response = API.checkAnswer(questionId, selectedAnswer)
 
-  if (response.questionId != questionId) return   // игнорировать устаревшие данные
+if (response.questionId != questionId) return   // игнорировать устаревшие данные
 
-  checkResult = response.result
-  status = 'checked'
+checkResult = response.result
+status = 'checked'
 
 --------------------------------
 SHOULD_SHOW_EXPLANATION():
-  return status == 'checked'
+return status == 'checked'
 
 --------------------------------
 IS_CHECK_BUTTON_DISABLED():
-  return selectedAnswer == null
-  OR status != 'idle'
+return selectedAnswer == null
+OR status != 'idle'
 
 --------------------------------
 IS_ANSWER_DISABLED():
-  return status != 'idle'
+return status != 'idle'
 
 --------------------------------
 ON_QUESTION_CHANGE(newQuestionId):
-  questionId = newQuestionId
+questionId = newQuestionId
 
-  selectedAnswer = null
-  checkResult = null
-  status = 'idle'
+selectedAnswer = null
+checkResult = null
+status = 'idle'
 
 # Часть 3. Edge cases и UX
 
