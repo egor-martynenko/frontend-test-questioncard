@@ -2,13 +2,14 @@
 
 ## Структура компонентов
 
-QuestionCard (container)
-├── QuestionStem
-├── AnswerOptions
-│   └── AnswerOption
-├── ActionBar
-│   └── CheckAnswerButton
+QuestionCard (container)  
+├── QuestionStem  
+├── AnswerOptions  
+│ └── AnswerOption  
+├── ActionBar  
+│ └── CheckAnswerButton  
 └── Explanation (conditional)
+
 
 ### Ответственность компонентов
 - **QuestionCard (container)**  
@@ -64,20 +65,17 @@ URL остаётся единственным источником правды 
 STATE:
 questionId
 selectedAnswer = null
-status = 'idle'        // idle | checking | checked
+status = 'idle'     // idle | checking | checked
 checkResult = null     // correct | wrong | null
 
---------------------------------
 ON_ANSWER_SELECT(answerId):
 if (status != 'idle') return
 selectedAnswer = answerId
 
---------------------------------
 CAN_CHECK_ANSWER():
 return selectedAnswer != null
 AND status == 'idle'
 
---------------------------------
 ON_CHECK_ANSWER():
 if (!CAN_CHECK_ANSWER()) return
 
@@ -92,20 +90,16 @@ if (response.questionId != questionId) return   // игнорировать ус
 checkResult = response.result
 status = 'checked'
 
---------------------------------
 SHOULD_SHOW_EXPLANATION():
 return status == 'checked'
 
---------------------------------
 IS_CHECK_BUTTON_DISABLED():
 return selectedAnswer == null
 OR status != 'idle'
 
---------------------------------
 IS_ANSWER_DISABLED():
 return status != 'idle'
 
---------------------------------
 ON_QUESTION_CHANGE(newQuestionId):
 questionId = newQuestionId
 
